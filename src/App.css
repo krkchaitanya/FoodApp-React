@@ -3,4 +3,31 @@
   font-family: 'Open Sans', sans-serif;
 }
 
+.red{
+  color: red;
+}
 
+.bold{
+  font-weight: bold;
+}
+
+.App button{
+  border: 1px solid blue;
+  padding: 16px;
+  background-color: green;
+  font: inherit;
+  color: white;
+}
+
+.App button:hover{
+  background: lightgreen;
+  color: black;
+}
+
+.App button.Red{
+  background-color: red;
+}
+
+.App button.Red:hover{
+  background-color: salmon;
+}

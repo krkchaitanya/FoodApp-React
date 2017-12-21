@@ -2,7 +2,8 @@ import React from "react";
 import Auxiliary from "../../hoc/Auxiliary";
 import classes from "./Layout.css";
 
-const layout=(props)=>(
+const layout=(props)=>{
+    return (
     <Auxiliary>
         <div>Toolbar , sidedrawer, backdrop</div>
         <main className={classes.Content}>
@@ -10,5 +11,6 @@ const layout=(props)=>(
         </main>
     </Auxiliary>
 )
+}
 
 export default layout;
