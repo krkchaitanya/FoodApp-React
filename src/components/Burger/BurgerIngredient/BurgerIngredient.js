@@ -34,7 +34,7 @@ switch(this.props.type) {
         ingredient=<div className={classes.Salad}></div>;
         break;
 
-        case('Cheese'):
+        case('cheese'):
         ingredient=<div className={classes.Cheese}></div>;
         break;
 
