@@ -20,7 +20,7 @@ return(
             disabled={props.disabled[ctrl.type]}
             />
         })}
-        <button className={classes.OrderButton}>Order NOW</button>
+        <button className={classes.OrderButton} disabled={!props.purchasable}>Order NOW</button>
     </div>    
 );
 

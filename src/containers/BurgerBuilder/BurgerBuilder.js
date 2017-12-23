@@ -3,6 +3,7 @@ import React ,{Component} from "react";
 import Auxiliary from "../../hoc/Auxiliary";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
+import Modal from "../../components/Modal/Modal";
 
 const INGREDIENT_PRICES={
     salad:0.5,
@@ -26,25 +27,19 @@ state={
     },
     totalPrice:4,
     purchaseable:false
-}
+};
 
 // to check atleast we have one ingredient in burger
 
-updatePurchaseState(){
-    const ingredients={
-        ...this.state.ingredients
-    };
-    const sum=Object.keys(ingredients)
-    .map((igKey)=>{
-        return ingredients[igKey];
-    })
-    .reduce((sum,el)=>{
-    return sum+el;
-    
-    },0);
-    this.setState({
-        purchaseable:sum>0
-    })
+updatePurchaseState (ingredients) {
+    const sum = Object.keys( ingredients )
+        .map( igKey => {
+            return ingredients[igKey];
+        } )
+        .reduce( ( sum, el ) => {
+            return sum + el;
+        }, 0 );
+    this.setState( { purchasable: sum > 0 } );
 }
 
 // adding ingredients to the burger ..
@@ -65,6 +60,7 @@ addIngredientHandler=(type)=>{
       ingredients:updatedIngredients
  })
 
+ this.updatePurchaseState(updatedIngredients);
 }
 
 
@@ -88,6 +84,8 @@ if(oldCount<=0){
          totalPrice:newPrice,
          ingredients:updatedIngredients
     })
+
+    this.updatePurchaseState(updatedIngredients);
 }
 
 
@@ -102,12 +100,13 @@ for(let key in disableInfo){
 
         return(
             <Auxiliary>
+                <Modal/>
                 <Burger  ingredients={this.state.ingredients}/>
                 <BuildControls   ingredientAdded={this.addIngredientHandler}
                                  ingredientRemoved={this.removeIngredeint}
                                  disabled={disableInfo}
-                                 purchaseable={this.state.purchaseable}
-                                 price={this.state.totalPrice}
+                                 purchasable={this.state.purchasable}
+                                 price={this.state.totalPrice}  
                 />
             </Auxiliary>      
         );
