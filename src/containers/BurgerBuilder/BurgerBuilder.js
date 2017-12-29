@@ -107,7 +107,9 @@ purchaseCancelHandler=()=>{
 }
 
 
-
+purchasecontinueHandler=()=>{
+    alert('You continue');
+}
 
     render(){
 
@@ -123,7 +125,11 @@ purchaseCancelHandler=()=>{
                 <Auxiliary>
                         
                         <Modal show={this.state.purchasing}   modalClosed={this.purchaseCancelHandler}>
-                            <OrderSummary ingredients={this.state.ingredients}/>
+                            <OrderSummary ingredients={this.state.ingredients}
+                                          purchaseCancelled={this.purchaseCancelHandler}
+                                          purchaseContinued={this.purchasecontinueHandler}
+                                          price={this.state.totalPrice}  
+                                            />
                         </Modal>
 
                         <Burger  ingredients={this.state.ingredients}/>
