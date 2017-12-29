@@ -31,27 +31,6 @@ state={
     purchasing:false
 };
 
-// to check atleast we have one ingredient in burger
-
-updatePurchaseState (ingredients) {
-    const sum = Object.keys( ingredients )
-        .map( igKey => {
-            return ingredients[igKey];
-        } )
-        .reduce( ( sum, el ) => {
-            return sum + el;
-        }, 0 );
-    this.setState( { purchasable: sum > 0 } );
-}
-
-
-purchaseHandler=()=>{
-    this.setState({
-        purchasing:true
-    })
-}
-
-
 // adding ingredients to the burger ..
 addIngredientHandler=(type)=>{
         const oldCount=this.state.ingredients[type];
@@ -99,35 +78,68 @@ if(oldCount<=0){
 }
 
 
-    render(){
 
-const disableInfo={
-    ...this.state.ingredients
-};
+// to check atleast we have one ingredient in burger
 
-for(let key in disableInfo){
-    disableInfo[key]=disableInfo[key]<=0;
+updatePurchaseState (ingredients) {
+    const sum = Object.keys( ingredients )
+        .map( igKey => {
+            return ingredients[igKey];
+        } )
+        .reduce( ( sum, el ) => {
+            return sum + el;
+        }, 0 );
+    this.setState( { purchasable: sum > 0 } );
 }
 
-        return(
-            <Auxiliary>
-                    
-                    <Modal show={this.state.purchasing}>
-                        <OrderSummary ingredients={this.state.ingredients}/>
-                    </Modal>
 
-                    <Burger  ingredients={this.state.ingredients}/>
+purchaseHandler=()=>{
+    this.setState({
+        purchasing:true
+    })
+}
 
-                    <BuildControls   ingredientAdded={this.addIngredientHandler}
-                                    ingredientRemoved={this.removeIngredeint}
-                                    disabled={disableInfo}
-                                    purchasable={this.state.purchasable}
-                                    price={this.state.totalPrice} 
-                                    ordered={this.purchaseHandler} 
-                    />
 
-            </Auxiliary>    
-        );
+purchaseCancelHandler=()=>{
+    this.setState({
+        purchasing:false
+    })
+}
+
+
+
+
+    render(){
+
+        const disableInfo={
+            ...this.state.ingredients
+        };
+
+        for(let key in disableInfo){
+            disableInfo[key]=disableInfo[key]<=0;
+        }
+
+            return(
+                <Auxiliary>
+                        
+                        <Modal show={this.state.purchasing}   modalClosed={this.purchaseCancelHandler}>
+                            <OrderSummary ingredients={this.state.ingredients}/>
+                        </Modal>
+
+                        <Burger  ingredients={this.state.ingredients}/>
+
+                        <BuildControls   ingredientAdded={this.addIngredientHandler}
+                                        ingredientRemoved={this.removeIngredeint}
+                                        disabled={disableInfo}
+                                        purchasable={this.state.purchasable}
+                                        price={this.state.totalPrice} 
+                                        ordered={this.purchaseHandler} 
+                        />
+
+                </Auxiliary>    
+            );
     }
 } 
+
+
 export default BurgerBuilder;
