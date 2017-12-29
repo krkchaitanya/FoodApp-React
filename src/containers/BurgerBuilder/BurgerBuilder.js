@@ -3,7 +3,8 @@ import React ,{Component} from "react";
 import Auxiliary from "../../hoc/Auxiliary";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
-import Modal from "../../components/Modal/Modal";
+import Modal from "../../components/UI/Modal/Modal";
+import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 
 const INGREDIENT_PRICES={
     salad:0.5,
@@ -26,7 +27,8 @@ state={
         meat:0
     },
     totalPrice:4,
-    purchaseable:false
+    purchaseable:false,
+    purchasing:false
 };
 
 // to check atleast we have one ingredient in burger
@@ -42,25 +44,33 @@ updatePurchaseState (ingredients) {
     this.setState( { purchasable: sum > 0 } );
 }
 
+
+purchaseHandler=()=>{
+    this.setState({
+        purchasing:true
+    })
+}
+
+
 // adding ingredients to the burger ..
 addIngredientHandler=(type)=>{
- const oldCount=this.state.ingredients[type];
- const updatedCount=oldCount+1;
- const updatedIngredients={
-     ...this.state.ingredients
- }
- 
- updatedIngredients[type]=updatedCount;
+        const oldCount=this.state.ingredients[type];
+        const updatedCount=oldCount+1;
+        const updatedIngredients={
+                                     ...this.state.ingredients
+                                 }
+        
+        updatedIngredients[type]=updatedCount;
 
- const priceAddition=INGREDIENT_PRICES[type];
- const oldPrices=this.state.totalPrice;
- const newPrice=oldPrices+priceAddition;
- this.setState({
-      totalPrice:newPrice,
-      ingredients:updatedIngredients
- })
+        const priceAddition=INGREDIENT_PRICES[type];
+        const oldPrices=this.state.totalPrice;
+        const newPrice=oldPrices+priceAddition;
+        this.setState({
+            totalPrice:newPrice,
+            ingredients:updatedIngredients
+        })
 
- this.updatePurchaseState(updatedIngredients);
+        this.updatePurchaseState(updatedIngredients);
 }
 
 
@@ -94,21 +104,29 @@ if(oldCount<=0){
 const disableInfo={
     ...this.state.ingredients
 };
+
 for(let key in disableInfo){
     disableInfo[key]=disableInfo[key]<=0;
 }
 
         return(
             <Auxiliary>
-                <Modal/>
-                <Burger  ingredients={this.state.ingredients}/>
-                <BuildControls   ingredientAdded={this.addIngredientHandler}
-                                 ingredientRemoved={this.removeIngredeint}
-                                 disabled={disableInfo}
-                                 purchasable={this.state.purchasable}
-                                 price={this.state.totalPrice}  
-                />
-            </Auxiliary>      
+                    
+                    <Modal show={this.state.purchasing}>
+                        <OrderSummary ingredients={this.state.ingredients}/>
+                    </Modal>
+
+                    <Burger  ingredients={this.state.ingredients}/>
+
+                    <BuildControls   ingredientAdded={this.addIngredientHandler}
+                                    ingredientRemoved={this.removeIngredeint}
+                                    disabled={disableInfo}
+                                    purchasable={this.state.purchasable}
+                                    price={this.state.totalPrice} 
+                                    ordered={this.purchaseHandler} 
+                    />
+
+            </Auxiliary>    
         );
     }
 } 
