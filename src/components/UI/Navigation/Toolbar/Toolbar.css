@@ -1,10 +1,10 @@
-.Toolbar{
+.Toolbar {
     height: 56px;
     width: 100%;
     position: fixed;
-    top:0;
+    top: 0;
     left: 0;
-    background-color: #703b09;
+    background-color: #703B09;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -13,17 +13,16 @@
     z-index: 90;
 }
 
-.Toolbar nav{
+.Toolbar nav {
     height: 100%;
-
 }
 
-.Logo{
+.Logo {
     height: 80%;
 }
 
-@media(max-width:499px){
-    .DesktopOnly{
+@media (max-width: 499px) {
+    .DesktopOnly {
         display: none;
     }
 }
