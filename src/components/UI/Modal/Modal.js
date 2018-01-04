@@ -1,21 +1,23 @@
-import React from "react";
+import React ,{Component} from "react";
 import classes from "./Modal.css";
 import Auxiliary from "../../../hoc/Auxiliary";
 import Backdrop from "../Backdrop/Backdrop";
 
-const modal=(props)=>{
+class Modal extends Component{
+    render(){
     return(
         <Auxiliary>
-            <Backdrop  show={props.show}  clicked={props.modalClosed}/>
+            <Backdrop  show={this.props.show}  clicked={this.props.modalClosed}/>
             <div className={classes.Modal} style={{
-            transform:props.show?"translateY(0)":'translateY(-1000vh)',
-            opacity:props.show?'1':'0'
+            transform:this.props.show?"translateY(0)":'translateY(-1000vh)',
+            opacity:this.props.show?'1':'0'
                 }}>
-            {props.children}
+            {this.props.children}
         </div>
 
         </Auxiliary>    
     )
+}
 };
 
-export default modal;
+export default Modal;

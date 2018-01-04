@@ -6,16 +6,20 @@ import Toolbar from "../UI/Navigation/Toolbar/Toolbar";
 import SideDrawer from "../UI/Navigation/SideDrawer/SideDrawer";
 
 class Layout extends Component{
+    state = {
+        showSideDrawer: false
+    }
 
-state={
-    showSideDrawer:true
-}
+    sideDrawerClosedHandler = () => {
+        this.setState( { showSideDrawer: false } );
+    }
 
-sideDrawerClosedHandler=()=>{
-    this.setState({
-        showSideDrawer:false
-    })
-}
+    sideDrawerToggleHandler = () => {
+        this.setState( ( prevState ) => {
+            return { showSideDrawer: !prevState.showSideDrawer };
+        } );
+    }
+
 
 render(){
     return(
