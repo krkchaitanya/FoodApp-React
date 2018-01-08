@@ -131,7 +131,7 @@ purchasecontinueHandler=()=>{
         },
         deliveryMethod:"fastest"
     }
-    axios.post("/orders.json",order).then((response)=>{
+    axios.post("/orders",order).then((response)=>{
             this.setState({
                 loading:false
             });
@@ -186,4 +186,4 @@ purchasecontinueHandler=()=>{
 } 
 
 
-export default withErrorHandler(BurgerBuilder);
+export default withErrorHandler(BurgerBuilder,axios);
