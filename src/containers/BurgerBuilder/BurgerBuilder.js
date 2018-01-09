@@ -37,7 +37,7 @@ state={
 };
 
 componentDidMount () {
-    axios.get( 'https://react-my-burger.firebaseio.com/ingredients.json' )
+    axios.get( 'https://reactdata-fa74c.firebaseio.com/ingredients.json' )
         .then( response => {
             this.setState( { ingredients: response.data } );
         } )
