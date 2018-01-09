@@ -36,6 +36,16 @@ state={
     loading:false
 };
 
+componentDidMount () {
+    axios.get( 'https://react-my-burger.firebaseio.com/ingredients.json' )
+        .then( response => {
+            this.setState( { ingredients: response.data } );
+        } )
+        .catch( error => {
+            this.setState( { error: true } );
+        } );
+}
+
 // adding ingredients to the burger ..
 addIngredientHandler=(type)=>{
         const oldCount=this.state.ingredients[type];
@@ -131,7 +141,7 @@ purchasecontinueHandler=()=>{
         },
         deliveryMethod:"fastest"
     }
-    axios.post("/orders",order).then((response)=>{
+    axios.post("/orders.json",order).then((response)=>{
             this.setState({
                 loading:false
             });
