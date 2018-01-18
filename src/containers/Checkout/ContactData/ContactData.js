@@ -23,7 +23,7 @@ orderHandler=(event)=>{
         this.setState( { loading: true } );
         const order = {
             ingredients: this.props.ingredients,
-            price: this.props.totalPrice,
+            price: this.props.price,
             customer: {
                 name: 'Max Schwarzmüller',
                 address: {
@@ -54,7 +54,7 @@ render(){
                 <input type="text" name="street" placeholder="Your street"/><br/>
                 <input type="text" name="postalcode" placeholder="Postal code"/><br/><br/>
                 <Button btnType="Success" clicked={this.orderHandler}>Orders</Button>
-            </form> 
+        </form> 
     );
     if(this.state.loading){
         form=<Spinner/>;
