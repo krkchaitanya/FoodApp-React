@@ -52,7 +52,9 @@ state={
         deliveryMethod:{
             elementType:'select',
             elementConfig:{
-                options:[{value:'fastest', displayValue:'Fastest'},
+                options:[
+                
+                {value:'fastest', displayValue:'Fastest'},
                 {value:'cheapest', displayValue:'Cheapest'}
             ]
             },
@@ -82,14 +84,42 @@ orderHandler=(event)=>{
             } );
 }
 
+
+nameChangeHandler=(event, inputIdentifier)=>{
+    const updatedOrderForm={
+        ...this.state.orderForm
+    }
+
+    const updatedFormElement=   {
+        ...updatedOrderForm[inputIdentifier]
+    };
+
+    updatedFormElement.value=event.target.value;
+    updatedOrderForm[inputIdentifier]=updatedFormElement;
+    this.setState({orderForm:updatedOrderForm});
+}
+
 render(){
 
+    const formElementsArray=[];
+    for(let key in this.state.orderForm){
+        formElementsArray.push({
+            id:key,
+            config:this.state.orderForm[key]
+        });
+    }
+
     let form=(
-        <form>
+        <form onSubmit={this.orderHandler}>
                 <Input elementType="..." elementConfig="..."  value="..."/><br/>
-                <Input inputtype="input" type="email" name="email" placeholder="Your Email"/><br/>
-                <Input inputtype="input" type="text" name="street" placeholder="Your street"/><br/>
-                <Input inputtype="input" type="text" name="postalcode" placeholder="Postal code"/><br/><br/>
+                {formElementsArray.map(formElement=>(
+                    <Input      key={formElement.id}
+                                elementType={formElement.config.elementType}
+                                elementConfig={formElement.config.elementConfig}
+                                value={formElement.config.value}
+                                changed={(event)=>this.nameChangeHandler(event,formElement.id)}
+                        />
+                ))}
                 <Button btnType="Success" clicked={this.orderHandler}>Orders</Button>
         </form> 
     );
