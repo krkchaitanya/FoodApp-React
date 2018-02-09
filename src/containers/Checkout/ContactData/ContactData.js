@@ -35,11 +35,11 @@ state={
         },
         country:{
             elementType:'input',
-            elementConfi:{
+            elementConfig:{
                 type:'text',
-                placeholder:'country'
+                placeholder:'Your country'
             },
-            value:''    
+            value:''
         },
         email:{
             elementType:'input',
@@ -99,6 +99,10 @@ nameChangeHandler=(event, inputIdentifier)=>{
     this.setState({orderForm:updatedOrderForm});
 }
 
+
+
+
+
 render(){
 
     const formElementsArray=[];
@@ -111,7 +115,6 @@ render(){
 
     let form=(
         <form onSubmit={this.orderHandler}>
-                <Input elementType="..." elementConfig="..."  value="..."/><br/>
                 {formElementsArray.map(formElement=>(
                     <Input      key={formElement.id}
                                 elementType={formElement.config.elementType}
