@@ -26,7 +26,8 @@ export const purchaseBurgerStart=()=>{
 }
 
 
-// async action...
+//................. async action......
+
 export const purchaseBurger=(orderData)=>{
     return (dispatch)=>{
         dispatch(fetchOrdersStart());
@@ -76,6 +77,8 @@ export const fetchOrdersStart=()=>{
 };
 
 
+// ------------asyns operation to fecth orders..............
+// ---------------------------------------------------------
 
 export const fetchOrders = () => {
     return dispatch => {
